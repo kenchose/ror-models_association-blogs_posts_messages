@@ -1,0 +1,45 @@
+1. validates :name, :description, presence: true
+
+2.  validates :title, :content, presence: true
+    validates :title, length: { minimum: 7 } 
+
+3.  validates :author, :message, presence: true
+    validates :message, length: { minimum: 7 }
+
+
+Using the console:
+
+1. create 5 new blogs.
+    Blog.create(name:"name", description:"description")
+                OR
+    b = Blog.new
+    b.name="name"
+    b.description="description"
+    b.save
+
+2. create several posts for each blog.
+    Post.create(title:"title", content:"content", blog:(Blog.first/Blog.second/Blog.third/Blog.fourth/Blog.fifth))
+
+3. create several messages for the first post.
+    Message.create(author:"Kenny", message:"First_Message", post:Post.first)
+
+4. know how to retrieve all posts for the first blog.
+    Blog.first.posts
+
+5. know how to retrieve all posts for the last blog (sorted by title in the DESC order).
+     Blog.last.posts.order(title: :DESC)
+
+6. know how to update the first post's title.
+    p = Post.first
+    p.title="new title"
+    p.save
+
+7. know how to delete the third post (have the model automatically delete all messages associated with the third post when you delete the third post).
+    add in post.rb
+        has_many :messages, dependent: :destroy
+
+8. know how to retrieve all blogs.
+    Blog.all
+
+9. know how to retrieve all blogs whose id is less than 5.
+    Blog.where("id < ?", 5)
